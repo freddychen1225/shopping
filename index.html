@@ -40,21 +40,11 @@
             margin-bottom: 20px;
         }
         .tab-btn {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            background: transparent;
-            border-radius: 20px;
-            font-weight: bold;
-            color: #636e72;
-            cursor: pointer;
-            transition: 0.3s;
+            flex: 1; padding: 10px; border: none; background: transparent;
+            border-radius: 20px; font-weight: bold; color: #636e72;
+            cursor: pointer; transition: 0.3s;
         }
-        .tab-btn.active {
-            background: white;
-            color: var(--primary-color);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+        .tab-btn.active { background: white; color: var(--primary-color); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 
         /* --- 內容區塊 --- */
         .content-section { display: none; width: 100%; max-width: 500px; }
@@ -71,74 +61,51 @@
             transition: 0.3s;
         }
 
-        .card.winner {
-            border-color: var(--cheap-color);
-            background-color: #fff0f0;
-            transform: scale(1.02);
-        }
-
+        .card.winner { border-color: var(--cheap-color); background-color: #fff0f0; transform: scale(1.02); }
         .card-header { font-weight: bold; margin-bottom: 10px; display: flex; justify-content: space-between; }
         .winner-badge { display: none; color: var(--cheap-color); font-weight: bold; }
         .card.winner .winner-badge { display: block; }
 
-        /* 輸入群組 */
         .input-group { margin-bottom: 10px; display: flex; flex-direction: column; }
         .input-group label { font-size: 0.9rem; color: #636e72; margin-bottom: 3px; }
         
         input, select {
-            padding: 10px;
-            border: 1px solid #dfe6e9;
-            border-radius: 8px;
-            font-size: 1rem;
-            width: 100%;
-            outline: none;
+            padding: 10px; border: 1px solid #dfe6e9; border-radius: 8px;
+            font-size: 1rem; width: 100%; outline: none;
         }
         input:focus { border-color: var(--primary-color); }
 
-        /* 結果顯示 */
         .result-row {
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px dashed #b2bec3;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            margin-top: 10px; padding-top: 10px; border-top: 1px dashed #b2bec3;
+            display: flex; justify-content: space-between; align-items: center;
         }
         .unit-price { font-size: 1.4rem; font-weight: bold; color: #636e72; }
         .card.winner .unit-price { color: var(--cheap-color); }
 
         /* --- 折扣計算機專用 --- */
         .calc-options { display: flex; flex-direction: column; gap: 10px; }
-        .calc-option {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            border: 1px solid #dfe6e9;
-            border-radius: 10px;
-            cursor: pointer;
-        }
+        .calc-option { display: flex; align-items: center; padding: 10px; border: 1px solid #dfe6e9; border-radius: 10px; cursor: pointer; }
         .calc-option.selected { border-color: var(--primary-color); background-color: #e8f8f5; }
-        .radio-circle {
-            width: 20px; height: 20px; border-radius: 50%;
-            border: 2px solid #b2bec3; margin-right: 10px;
-            display: flex; align-items: center; justify-content: center;
-        }
+        .radio-circle { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #b2bec3; margin-right: 10px; display: flex; align-items: center; justify-content: center; }
         .calc-option.selected .radio-circle { border-color: var(--primary-color); }
         .radio-inner { width: 10px; height: 10px; background: var(--primary-color); border-radius: 50%; display: none; }
         .calc-option.selected .radio-inner { display: block; }
 
-        .calc-result-box {
-            background: var(--primary-color);
-            color: white;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            margin-top: 20px;
-        }
+        .calc-result-box { background: var(--primary-color); color: white; padding: 20px; border-radius: 15px; text-align: center; margin-top: 20px; }
         .final-price { font-size: 2.5rem; font-weight: bold; }
         .sub-info { opacity: 0.9; font-size: 0.9rem; }
 
+        /* 清空按鈕 */
+        .clear-btn {
+            width: 100%; padding: 12px; border: 1px dashed #b2bec3;
+            background: transparent; color: #636e72; border-radius: 10px;
+            cursor: pointer; margin-top: 10px; font-size: 1rem;
+        }
+        .clear-btn:hover { background: #dfe6e9; color: var(--text-color); }
+
         .footer { margin-top: 30px; text-align: center; color: #b2bec3; font-size: 0.8rem; }
+        .footer a { color: #b2bec3; text-decoration: underline; transition: color 0.2s; }
+        .footer a:hover { color: var(--primary-color); }
 
     </style>
 </head>
@@ -175,7 +142,7 @@
                 <input list="store-list" placeholder="選擇或輸入..." oninput="calculateCompare()">
             </div>
             <div class="input-group">
-                <label>數量/重量 (例如: 120抽, 500g)</label>
+                <label>數量/重量 (例如: 120, 500)</label>
                 <input type="number" id="amount-a" placeholder="輸入數字" oninput="calculateCompare()">
             </div>
             <div class="input-group">
@@ -211,6 +178,8 @@
                 <span class="unit-price" id="unit-b">---</span>
             </div>
         </div>
+
+        <button class="clear-btn" onclick="clearCompare()">🗑️ 清空重算</button>
     </div>
 
     <!-- 頁面二：折扣計算 -->
@@ -269,17 +238,20 @@
                 <div class="final-price" id="final-unit-price">0</div>
                 <div class="sub-info" id="discount-info">相當於原價 -- 折</div>
             </div>
+
+            <button class="clear-btn" onclick="clearDiscount()">🗑️ 清空重算</button>
         </div>
     </div>
 
-    <div class="footer">Freddy & Gemini 3 Pro Smart Shopping</div>
+    <div class="footer">
+        <a href="https://www.facebook.com/profile.php?id=61577226729837" target="_blank">Freddy</a> & Gemini 3 Pro 設計協作
+    </div>
 
     <script>
         // --- 頁籤切換 ---
         function switchTab(tab) {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.content-section').forEach(c => c.classList.remove('active'));
-            
             if (tab === 'compare') {
                 document.querySelector('.tab-btn:nth-child(1)').classList.add('active');
                 document.getElementById('tab-compare').classList.add('active');
@@ -312,7 +284,6 @@
                 document.getElementById('unit-b').innerText = "---";
             }
 
-            // 判定贏家
             document.getElementById('card-a').classList.remove('winner');
             document.getElementById('card-b').classList.remove('winner');
 
@@ -325,6 +296,17 @@
             }
         }
 
+        // --- 清空比價 ---
+        function clearCompare() {
+            const inputs = document.querySelectorAll('#tab-compare input');
+            inputs.forEach(input => input.value = '');
+            
+            document.getElementById('unit-a').innerText = "---";
+            document.getElementById('unit-b').innerText = "---";
+            document.getElementById('card-a').classList.remove('winner');
+            document.getElementById('card-b').classList.remove('winner');
+        }
+
         // --- 折扣計算功能 ---
         let currentOption = 1;
 
@@ -332,55 +314,32 @@
             currentOption = opt;
             document.querySelectorAll('.calc-option').forEach(el => el.classList.remove('selected'));
             document.querySelectorAll('.calc-option')[opt-1].classList.add('selected');
-            calculateDiscount(); // 重新計算
+            calculateDiscount();
         }
 
         function calculateDiscount() {
             const price = parseFloat(document.getElementById('orig-price').value) || 0;
             let finalUnit = 0;
-            let totalCost = 0;
-            let totalItems = 0;
 
             if (currentOption === 1) {
-                // 第二件 XX 元
                 const val = parseFloat(document.getElementById('val-1').value) || 0;
-                if (price > 0) {
-                    totalCost = price + val;
-                    totalItems = 2;
-                    finalUnit = totalCost / 2;
-                }
+                if (price > 0) finalUnit = (price + val) / 2;
             } else if (currentOption === 2) {
-                // 第二件 XX 折 (例如 6折 = 0.6)
                 let val = parseFloat(document.getElementById('val-2').value) || 0;
-                // 防呆：如果使用者輸入 60，當作 6折；輸入 6，當作 6折
                 if (val > 10) val = val / 10; 
-                
-                if (price > 0 && val > 0) {
-                    const secondPrice = price * (val / 10); // 台灣習慣：6折 = x0.6
-                    totalCost = price + secondPrice;
-                    totalItems = 2;
-                    finalUnit = totalCost / 2;
-                }
+                if (price > 0 && val > 0) finalUnit = (price + (price * (val / 10))) / 2;
             } else if (currentOption === 3) {
-                // XX 件共 XX 元
                 const count = parseFloat(document.getElementById('val-3a').value) || 0;
                 const total = parseFloat(document.getElementById('val-3b').value) || 0;
-                if (count > 0 && total > 0) {
-                    totalCost = total;
-                    totalItems = count;
-                    finalUnit = total / count;
-                }
+                if (count > 0 && total > 0) finalUnit = total / count;
             }
 
-            // 顯示結果
             const resultEl = document.getElementById('final-unit-price');
             const infoEl = document.getElementById('discount-info');
             
             if (finalUnit > 0) {
-                resultEl.innerText = finalUnit.toFixed(1); // 小數點一位
-                
+                resultEl.innerText = finalUnit.toFixed(1);
                 if (price > 0) {
-                    // 計算相當於幾折
                     const discountRate = (finalUnit / price) * 10;
                     infoEl.innerText = `相當於原價 ${discountRate.toFixed(1)} 折`;
                 } else if (currentOption === 3) {
@@ -390,6 +349,17 @@
                 resultEl.innerText = "0";
                 infoEl.innerText = "請輸入數值";
             }
+        }
+
+        // --- 清空折扣 ---
+        function clearDiscount() {
+            const inputs = document.querySelectorAll('#tab-discount input');
+            inputs.forEach(input => input.value = '');
+            
+            document.getElementById('final-unit-price').innerText = "0";
+            document.getElementById('discount-info').innerText = "請輸入數值";
+            
+            // 不重置選項(radio)，讓使用者停留在原本選擇的模式比較順手
         }
     </script>
 </body>
